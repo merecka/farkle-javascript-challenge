@@ -56,15 +56,16 @@ function diceClick(img) {
 
 function scoreDice(diceDataNumber) {
   diceBankedScore[diceArr[diceDataNumber].value]++;
-  calculateTotalScore(diceDataNumber);
+  addDiceToScore(diceDataNumber);
 }
 
 function takeAwayDice(diceDataNumber) {
   diceBankedScore[diceArr[diceDataNumber].value]--;
-  calculateTotalScore(diceDataNumber);
+  removeDiceFromScore(diceDataNumber);
 }
 
-function calculateTotalScore(diceDataNumber) {
+// Increases the total score when a dice is unclicked
+function addDiceToScore(diceDataNumber) {
   console.log(diceBankedScore);
   console.log(typeof diceDataNumber);
   var valueKey = parseInt(diceDataNumber) + 1;
@@ -111,6 +112,58 @@ function calculateTotalScore(diceDataNumber) {
     case 6:
       if (diceBankedScore[valueKey] === 3) {
         totalScore = totalScore + 600;
+      }
+      break;
+  }
+
+  console.log("totalScore is " + totalScore);
+  document.getElementById("totalScore").innerHTML = totalScore;
+}
+
+// Decreases the total score when a dice is unclicked
+function removeDiceFromScore(diceDataNumber) {
+  console.log(diceBankedScore);
+  console.log(typeof diceDataNumber);
+  var valueKey = parseInt(diceDataNumber) + 1;
+  console.log("valueKey is " + valueKey);
+  switch (valueKey) {
+    case 1:
+      if (diceBankedScore[valueKey] === 0 || diceBankedScore[valueKey] === 1) {
+        totalScore = totalScore - 100;
+      } else if (diceBankedScore[valueKey] === 2) {
+        totalScore = totalScore - 1000;
+      }
+      break;
+
+    case 2:
+      if (diceBankedScore[valueKey] === 2) {
+        totalScore = totalScore - 200;
+      }
+      break;
+
+    case 3:
+      if (diceBankedScore[valueKey] === 2) {
+        totalScore = totalScore - 300;
+      }
+      break;
+
+    case 4:
+      if (diceBankedScore[valueKey] === 2) {
+        totalScore = totalScore - 400;
+      }
+      break;
+
+    case 5:
+      if (diceBankedScore[valueKey] === 0 || diceBankedScore[valueKey] === 1) {
+        totalScore = totalScore - 50;
+      } else if (diceBankedScore[valueKey] === 2) {
+        totalScore = totalScore - 500;
+      }
+      break;
+
+    case 6:
+      if (diceBankedScore[valueKey] === 2) {
+        totalScore = totalScore - 600;
       }
       break;
   }
