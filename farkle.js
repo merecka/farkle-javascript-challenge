@@ -33,15 +33,16 @@ function rollDice() {
 /*Updating images of dice given values of rollDice*/
 function updateDiceImg() {
   var diceImage;
-  for (var i = 1; i < 7; i++) {
-    diceImage = "images/" + diceArr[i - 1].value + ".png";
-    var dice = document.getElementById("die" + i);
+  for (var i = 0; i < 6; i++) {
+    diceImage = "images/" + diceArr[i].value + ".png";
+    var dice = document.getElementById("die" + parseInt(i + 1));
     dice.setAttribute("src", diceImage);
   }
 }
 
 function diceClick(img) {
   var i = img.getAttribute("data-number");
+  console.log("i in diceClick() is " + i);
 
   img.classList.toggle("transparent");
   if (diceArr[i].clicked === 0) {
@@ -55,21 +56,26 @@ function diceClick(img) {
 }
 
 function scoreDice(diceDataNumber) {
+  console.log("diceDataNumber is " + diceDataNumber);
   diceBankedScore[diceArr[diceDataNumber].value]++;
-  addDiceToScore(diceDataNumber);
+  console.log(
+    "diceArr[diceDataNumber].value is " + diceArr[diceDataNumber].value
+  );
+  addDiceToScore(diceArr[diceDataNumber].value);
 }
 
 function takeAwayDice(diceDataNumber) {
   diceBankedScore[diceArr[diceDataNumber].value]--;
-  removeDiceFromScore(diceDataNumber);
+  console.log(
+    "diceArr[diceDataNumber].value is " + diceArr[diceDataNumber].value
+  );
+  removeDiceFromScore(diceArr[diceDataNumber].value);
 }
 
 // Increases the total score when a dice is unclicked
-function addDiceToScore(diceDataNumber) {
-  console.log(diceBankedScore);
-  console.log(typeof diceDataNumber);
-  var valueKey = parseInt(diceDataNumber) + 1;
-  console.log("valueKey is " + valueKey);
+function addDiceToScore(diceValue) {
+  console.log("diceValue is " + diceValue);
+  var valueKey = parseInt(diceValue);
   switch (valueKey) {
     case 1:
       if (diceBankedScore[valueKey] === 1) {
@@ -121,11 +127,9 @@ function addDiceToScore(diceDataNumber) {
 }
 
 // Decreases the total score when a dice is unclicked
-function removeDiceFromScore(diceDataNumber) {
-  console.log(diceBankedScore);
-  console.log(typeof diceDataNumber);
-  var valueKey = parseInt(diceDataNumber) + 1;
-  console.log("valueKey is " + valueKey);
+function removeDiceFromScore(diceValue) {
+  console.log("diceValue is " + diceValue);
+  var valueKey = parseInt(diceValue);
   switch (valueKey) {
     case 1:
       if (diceBankedScore[valueKey] === 0 || diceBankedScore[valueKey] === 1) {
